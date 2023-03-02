@@ -22,7 +22,7 @@ Route::get('/', [GuestProjectController::class, 'index']);
 Route::name('guest.')
 ->group(function (){
     Route::resource('/projects', GuestProjectController::class);
-    Route::resource('/api', ApiProjectController::class);
+    Route::resource('/api/projects', ApiProjectController::class);
 });
 
 Route::middleware(['auth', 'verified'])
