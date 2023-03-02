@@ -1,0 +1,19 @@
+//object fit
+.object-fit-cover{
+    object-fit: cover !important;
+}
+//object-position
+.object-position-center{
+    object-position: center !important;
+}
+
+//min = m
+.mh-100vh{
+    min-height:100vh !important;
+}
+
+@media screen and (min-width:768px) {
+    .w-md-50{
+        width: 50% !important;
+    }
+}
