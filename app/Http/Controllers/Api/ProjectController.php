@@ -47,12 +47,16 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
         //
+        return response()->json([
+            'success' => true,
+            'result'  => $project->load(['user', 'type', 'technologies'])
+        ]);
     }
 
     /**
