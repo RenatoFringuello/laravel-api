@@ -18,7 +18,8 @@ use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 |
 */
 
-Route::name('api.')
+Route::middleware('auth:api')
+->name('api.')
 ->group(function(){
     Route::resource('/api/projects', ApiProjectController::class);
 });
