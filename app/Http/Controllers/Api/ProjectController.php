@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -16,13 +17,14 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        // dd(Storage::url('')); manca la porta
         $projects = Project::with(['user', 'type', 'technologies'])->paginate(12);
         return response()->json([
             'success' => true,
-            'result'  => $projects
+            'result'  => $projects,
         ]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +34,7 @@ class ProjectController extends Controller
     {
         //
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -43,7 +45,7 @@ class ProjectController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -53,9 +55,12 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
+        // dd();
         return response()->json([
             'success' => true,
-            'result'  => $project->load(['user', 'type', 'technologies'])
+            'result'  => $project->load(['user', 'type', 'technologies']),
+            // 'baseStorageUrl' => Storage::url('')
+            'baseStorageUrl' => 'http://127.0.0.1:8000/storage/'
         ]);
     }
 
