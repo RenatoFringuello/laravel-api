@@ -25,11 +25,11 @@ class UsersSeeder extends Seeder
         $user->lastname = 'Fringuello';
         $user->email = 'g@gmail.com';
         $user->password = Hash::make('12345678');
-        $user->api_token = Str::random(90);
+        $user->api_token = 'o02RvrLpVYNTTNVR0lgoAIEhwAlthYjE4nPMMU5q5BlDiatjS0NCJ9Hgi1zqZ4X4SH5mSJqKmyeIkKLPNE6KzbrgHz';
         
         $user->save();
         
-        $usersInDb = User::all(['username', 'email'])->toArray();
+        $usersInDb = User::all(['username', 'email', 'api_token'])->toArray();
         // dd($usersInDb);
         for ($i=0; $i<10; $i++) {
             $user = new User();
