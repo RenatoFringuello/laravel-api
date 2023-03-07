@@ -24,6 +24,7 @@
                 @foreach ($projects as $project)
                     <tr class="align-middle">
                         <td class="text-center">{{ $project->title }}</td>
+                        <td class="text-center">{{ $project->user->name . ' '. $project->user->lastname}}</td>
                         <td class="text-center {{($project->type->id == 1)?'text-success':(($project->type->id == 2)?'text-danger':'text-primary')}}">{{ $project->type->name }}</td>
                         <td class="text-center">{{ $project->start_date->format('Y-m-d') }}</td>
                         <td class="text-center text-success {{ $project->end_date ?? 'text-danger' }}">{{ isset($project->end_date) ? $project->end_date->format('Y-m-d'): 'work in progress' }}</td>
