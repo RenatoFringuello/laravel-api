@@ -56,4 +56,10 @@ class User extends Authenticatable
     public function projects():HasMany{
         return $this->hasMany(Project::class);
     }
+    /**
+     * get the user data related to the project
+     */
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
 }
