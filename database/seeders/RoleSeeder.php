@@ -18,28 +18,24 @@ class RoleSeeder extends Seeder
         $roles = [
             [
                 'level' => 1,
-                'name' => 'Super Administrator',
+                'name' => 'Super Administrator', // all 
             ],
             [
                 'level' => 2,
-                'name' => 'Administrator',
+                'name' => 'Administrator',  // all but can't delete users
             ],
             [
                 'level' => 3,
-                'name' => 'Moderator',
+                'name' => 'Moderator',  //all but edit others
             ],
             [
                 'level' => 4,
-                'name' => 'Editor',
+                'name' => 'Editor', //just edit and show others
             ],
             [
                 'level' => 5,
-                'name' => 'Publisher',
-            ],
-            [
-                'level' => 6,
                 'name' => 'User',
-            ],
+            ]
         ];
 
         foreach ($roles as $role) {
