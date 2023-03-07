@@ -86,16 +86,16 @@ class ProjectController extends Controller
 
         //questo serve a recuperare i projetti in base al ruolo che ha l'utente 
         //ricorda che nel where devi verificare il role dell'user loggato
+        
         // $projs = Project::select('projects.*')
         //             ->join('users', 'users.id', '=', 'projects.user_id')
         //             ->join('role_user', 'role_user.user_id', '=', 'users.id')
         //             ->join('roles', 'roles.id', '=', 'role_user.role_id')
         //             ->where('roles.id', '>', '1')
+        //             ->groupBy('projects.title')
         //             ->get();
 
-        // dd($projs);
-
-        
+        //             dd($projs);
 
         return view('admin.projects.index',  compact('projects', 'fields', 'orderBy', 'dir'));
     }
