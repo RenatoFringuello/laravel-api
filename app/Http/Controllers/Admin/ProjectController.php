@@ -56,11 +56,16 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        //get the oppsite of dir (direction of orderBy) passed by get [int]
+        $fields = ['Title', 'Author', 'Type', 'Start Date', 'End Date'];
+
+        //get the oppsite of dir (direction of orderBy) passed by request [int]
         $dir = !$request->dir;
 
         //get the field to order the query [string]
-        $orderBy = ( $request->sort == 'author') ? 'user_id' : (( $request->sort == 'type') ? 'type_id' : $request->sort);
+        $orderBy = (!in_array($request->sort, $fields)) ? 'id' //sarebbe meglio la 404
+                    :(($request->sort == 'author') ? 'user_id'
+                    : (( $request->sort == 'type') ? 'type_id'
+                    : $request->sort));
 
         //if logged user is a super admin or a admin
         if(Auth::user()->roles()->pluck('id')->contains(1) || Auth::user()->roles()->pluck('id')->contains(2)){
@@ -79,7 +84,18 @@ class ProjectController extends Controller
                         ->paginate(10)->withQueryString();
         }
 
-        $fields = ['Title', 'Author', 'Type', 'Start Date', 'End Date'];
+        //questo serve a recuperare i projetti in base al ruolo che ha l'utente 
+        //ricorda che nel where devi verificare il role dell'user loggato
+        // $projs = Project::select('projects.*')
+        //             ->join('users', 'users.id', '=', 'projects.user_id')
+        //             ->join('role_user', 'role_user.user_id', '=', 'users.id')
+        //             ->join('roles', 'roles.id', '=', 'role_user.role_id')
+        //             ->where('roles.id', '>', '1')
+        //             ->get();
+
+        // dd($projs);
+
+        
 
         return view('admin.projects.index',  compact('projects', 'fields', 'orderBy', 'dir'));
     }
