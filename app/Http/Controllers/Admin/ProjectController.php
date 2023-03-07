@@ -60,18 +60,26 @@ class ProjectController extends Controller
         $dir = !$request->dir;
 
         //get the field to order the query [string]
-        $orderBy = $request->sort;
+        $orderBy = ( $request->sort == 'author') ? 'user_id' : (( $request->sort == 'type') ? 'type_id' : $request->sort);
 
-        /**
-         * get all the projects of the user 
-         * sorted by something or 'id' if none passed
-         * paginated by 10
-         */
-        $projects = Project::where('user_id', '=', Auth::user()->id)
-                    ->orderBy($orderBy ?? 'id', ($dir) ? 'ASC' : 'DESC')
-                    ->paginate(10)->withQueryString();
+        //if logged user is a super admin or a admin
+        if(Auth::user()->roles()->pluck('id')->contains(1) || Auth::user()->roles()->pluck('id')->contains(2)){
+            // get all ordered and paginated by 10
+            $projects = Project::orderBy($orderBy ?? 'id', ($dir) ? 'DESC' : 'ASC')
+                        ->paginate(10)->withQueryString();
+        }
+        else{
+            /**
+             * get all the projects of the user 
+             * sorted by something or 'id' if none passed
+             * paginated by 10
+             */
+            $projects = Project::where('user_id', '=', Auth::user()->id)
+                        ->orderBy($orderBy ?? 'id', ($dir) ? 'DESC' : 'ASC')
+                        ->paginate(10)->withQueryString();
+        }
 
-        $fields = ['Title', 'Type', 'Start Date', 'End Date'];
+        $fields = ['Title', 'Author', 'Type', 'Start Date', 'End Date'];
 
         return view('admin.projects.index',  compact('projects', 'fields', 'orderBy', 'dir'));
     }
